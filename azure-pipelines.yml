@@ -1,0 +1,16 @@
+trigger:
+- main
+
+variables:
+  # Azure service connection established during pipeline creation
+  azureSubscription: ServicePrincipalName
+  appName: test1
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+- task: AzureFunctionApp@1 # Add this at the end of your file
+  inputs:
+    azureSubscription: ServicePrincipalName
+    appType: functionApp
+    appName: $(appName)
+    package: $(System.ArtifactsDirectory)/**/*.zip
